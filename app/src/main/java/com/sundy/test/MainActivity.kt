@@ -37,8 +37,11 @@ class MainActivity : AppCompatActivity() {
         var proxy=KotlinProxy(weshFood)
         proxy.washSomth()
 
-        var test1=KotlinDynamicProxy(washDish)
-        var wash:Wash=test1.getProxy() as Wash
-        wash.washSomth()
+        val  result="testLst".let {
+           // println(it.length)
+            1000
+            "我的一个测试"
+        }
+        println(result)
     }
 }
