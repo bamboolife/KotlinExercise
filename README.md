@@ -61,3 +61,10 @@ public class MyView extends View {
     }
 }
 ```
+### @JvmField （定义常量方式一）
+- 在val常量前面增加一个@JvmField就可以将它变成常量。
+- 其内部作用是抑制编译器生成相应的getter方法
+- 是用该注解修饰后则无法重写val的get方法
+```java
+ @JvmField val NAME = "89757
+```
