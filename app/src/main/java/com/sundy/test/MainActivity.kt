@@ -3,6 +3,8 @@ package com.sundy.test
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
+import com.sundy.test.bean.Constant
+import com.sundy.test.bean.PensonBean
 import com.sundy.test.delegates.DelegatesExt
 import com.sundy.test.delegates.DynamicProxy
 import com.sundy.test.delegates.KotlinDynamicProxy
@@ -10,6 +12,7 @@ import com.sundy.test.delegates.KotlinProxy
 import com.sundy.test.interfaces.Drink
 import com.sundy.test.interfaces.Eat
 import com.sundy.test.interfaces.Wash
+import com.sundy.test.utils.Singleton
 
 class MainActivity : AppCompatActivity() {
     val recyclerView:RecyclerView?=null
@@ -45,6 +48,6 @@ class MainActivity : AppCompatActivity() {
             "我的一个测试"
         }
         println(result)
-
+        Singleton.instance?.getUser()
     }
 }
