@@ -1,4 +1,3 @@
-https://blog.csdn.net/u013064109/article/details/78786646
 
 > 简述:
 相比Java, Kotlin提供了不少高级语法特性。对于一个Kotlin的初学者来说经常会写出一些不够优雅的代码。
