@@ -2,6 +2,7 @@ package com.sundy.test
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.RecyclerView
 import com.sundy.test.delegates.DelegatesExt
 import com.sundy.test.delegates.DynamicProxy
 import com.sundy.test.delegates.KotlinDynamicProxy
@@ -11,7 +12,8 @@ import com.sundy.test.interfaces.Eat
 import com.sundy.test.interfaces.Wash
 
 class MainActivity : AppCompatActivity() {
-    var earbreckFast: EatBreckfast? = null;
+    val recyclerView:RecyclerView?=null
+    var earbreckFast: EatBreckfast? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,5 +45,6 @@ class MainActivity : AppCompatActivity() {
             "我的一个测试"
         }
         println(result)
+
     }
 }
