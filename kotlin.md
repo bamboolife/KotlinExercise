@@ -7,6 +7,63 @@ https://blog.csdn.net/u013064109/article/details/78786646
 
 ## 一、回调函数的Kotin的lambda的简化
 
+在Kotlin中对Java中的一些的接口的回调做了一些优化，可以使用一个lambda函数来代替。可以简化写一些不必要的嵌套回调方法。但是需要注意:在lambda表达式，只支持单抽象方法模型，也就是说设计的接口里面只有一个抽象的方法，才符合lambda表达式的规则，多个回调方法不支持。
+
+- 1、用Java代码实现一个接口的回调。
+```java
+ mView.setEventListener(new ExamPlanHomeEventListener(){
+ 
+    public void onSuccess(Data data){
+      //todo
+    }
+ 
+ });
+```
+- 2、在Kotlin中的实现一个接口的回调,不使用lambda表达式(这种方式非常适用于kotlin中对于一个接口中含有多个回调方法)。
+
+```java
+mView.setEventListener(object: ExamPlanHomeEventListener{
+     
+    public void onSuccess(Data data){
+      //todo
+    }
+     
+});
+```
+- 3、如果在Kotlin中的对于接口只有一个回调的方法，就符合使用lambda函数，我们可以把以上代码简化成这样。
+```java
+mView.setEventListener({
+   data: Data ->
+   //todo
+})
+
+//或者可以直接省略Data,借助kotlin的智能类型推导
+
+mView.setEventListener({
+   data ->
+   //todo
+})
+```
+- 4、如果以上代码中的data参数没有使用到的话，可以直接把data去掉
+```java
+mView.setEventListener({
+  //todo
+
+})
+```
+- 5、以上代码还可以做个调整，由于setEventListener函数最后一个参数是一个函数的话，可以直接把括号的实现提到圆括号外面
+```java
+mView.setEventListener(){
+   //todo
+}
+```
+- 6、由于setEventListener这个函数只有一个参数，可以直接省略圆括号
+```java
+mView.setEventListener{
+  //todo
+}
+```
+
 ## 二、内联扩展函数之let
 
 ## 三、内联函数之with
