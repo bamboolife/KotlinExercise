@@ -330,8 +330,168 @@ override fun onBindViewHolder(holder: ViewHolder, position: Int){
 
 
 ## 五、内联扩展函数之apply
+- 1、apply函数使用的一般结构
+```java
+object.apply{
+//todo
+}
+```
+- 2、apply函数的inline+lambda结构
+```java
+@kotlin.internal.InlineOnly
+public inline fun <T> T.apply(block: T.() -> Unit): T { block(); return this }
+```
+- 3、apply函数的inline结构分析
+
+从结构上来看apply函数和run函数很像，唯一不同点就是它们各自返回的值不一样，run函数是以闭包形式返回最后一行代码的值，而apply函数的返回的是传入对象的本身。
+
+- 4、apply函数的kotlin和Java转化
+```java
+//kotlin
+
+fun main(args: Array<String>) {
+    val user = User("Kotlin", 1, "1111111")
+
+    val result = user.apply {
+        println("my name is $name, I am $age years old, my phone number is $phoneNum")
+        1000
+    }
+    println("result: $result")
+}
+
+//java
+
+public final class ApplyFunctionKt {
+   public static final void main(@NotNull String[] args) {
+      Intrinsics.checkParameterIsNotNull(args, "args");
+      User user = new User("Kotlin", 1, "1111111");
+      String var5 = "my name is " + user.getName() + ", I am " + user.getAge() + " years old, my phone number is " + user.getPhoneNum();
+      System.out.println(var5);
+      String var3 = "result: " + user;
+      System.out.println(var3);
+   }
+}
+```
+- 5、apply函数的适用场景
+
+整体作用功能和run函数很像，唯一不同点就是它返回的值是对象本身，而run函数是一个闭包形式返回，返回的是最后一行的值。正是基于这一点差异它的适用场景稍微与run函数有点不一样。apply一般用于一个对象实例初始化的时候，需要对对象中的属性进行赋值。或者动态inflate出一个XML的View的时候需要给View绑定数据也会用到，这种情景非常常见。特别是在我们开发中会有一些数据model向View model转化实例化的过程中需要用到。
+
+- 6、apply函数使用前后的对比
+没有使用apply函数的代码是这样的，看起来不够优雅
+
+```java
+mSheetDialogView = View.inflate(activity, R.layout.biz_exam_plan_layout_sheet_inner, null)
+        mSheetDialogView.course_comment_tv_label.paint.isFakeBoldText = true
+        mSheetDialogView.course_comment_tv_score.paint.isFakeBoldText = true
+        mSheetDialogView.course_comment_tv_cancel.paint.isFakeBoldText = true
+        mSheetDialogView.course_comment_tv_confirm.paint.isFakeBoldText = true
+        mSheetDialogView.course_comment_seek_bar.max = 10
+        mSheetDialogView.course_comment_seek_bar.progress = 0
+```
+使用apply函数后的代码是这样的
+
+```java
+mSheetDialogView = View.inflate(activity, R.layout.biz_exam_plan_layout_sheet_inner, null).apply{
+   course_comment_tv_label.paint.isFakeBoldText = true
+   course_comment_tv_score.paint.isFakeBoldText = true
+   course_comment_tv_cancel.paint.isFakeBoldText = true
+   course_comment_tv_confirm.paint.isFakeBoldText = true
+   course_comment_seek_bar.max = 10
+   course_comment_seek_bar.progress = 0
+
+}
+
+```
+
+多层级判空问题
+
+```java
+	if (mSectionMetaData == null || mSectionMetaData.questionnaire == null || mSectionMetaData.section == null) {
+			return;
+		}
+		if (mSectionMetaData.questionnaire.userProject != null) {
+			renderAnalysis();
+			return;
+		}
+		if (mSectionMetaData.section != null && !mSectionMetaData.section.sectionArticles.isEmpty()) {
+			fetchQuestionData();
+			return;
+		}
+```
+kotlin的apply函数优化
+
+```java
+mSectionMetaData?.apply{
+
+//mSectionMetaData不为空的时候操作mSectionMetaData
+
+}?.questionnaire?.apply{
+
+//questionnaire不为空的时候操作questionnaire
+
+}?.section?.apply{
+
+//section不为空的时候操作section
+
+}?.sectionArticle?.apply{
+
+//sectionArticle不为空的时候操作sectionArticle
+
+}
+
+```
 
 ## 六、内联扩展函数之also
+- 1、also函数使用的一般结构
+```java
+object.also{
+//todo
+}
+```
+- 2、also函数的inline+lambda结构
+```java
+@kotlin.internal.InlineOnly
+1
+@SinceKotlin(“1.1”)
+public inline fun T.also(block: (T) -> Unit): T { block(this); return this }
+```
+
+- 3、also函数的inline结构分析
+
+also函数的结构实际上和let很像唯一的区别就是返回值的不一样，let是以闭包的形式返回，返回函数体内最后一行的值，如果最后一行为空就返回一个Unit类型的默认值。而also函数返回的则是传入对象的本身
+
+- 4、also函数编译后的class文件
+```java
+//kotlin
+
+fun main(args: Array<String>) {
+    val result = "testLet".also {
+        println(it.length)
+        1000
+    }
+    println(result)
+}
+
+//java
+
+public final class AlsoFunctionKt {
+   public static final void main(@NotNull String[] args) {
+      Intrinsics.checkParameterIsNotNull(args, "args");
+      String var2 = "testLet";
+      int var4 = var2.length();
+      System.out.println(var4);
+      System.out.println(var2);
+   }
+}
+```
+- 5、also函数的适用场景
+
+适用于let函数的任何场景，also函数和let很像，只是唯一的不同点就是let函数最后的返回值是最后一行的返回值而also函数的返回值是返回当前的这个对象。一般可用于多个扩展函数链式调用
+
+- 6、also函数使用前后的对比
+
+和let函数类似
+
 
 ## 七、let,with,run,apply,also函数区别
 
