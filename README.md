@@ -29,7 +29,7 @@ if(a!=null){
 > 说明?. 与 !!. 都是Kotlin提供的检测空指针的方法
 
 ### @JvmOverloads 注解
-> 含义：方法的重载，类似于在java中对多个构造函数、多个方法的重载
+> 含义：方法的重载
 ```java
  @JvmOverloads fun setUser(name:String,age:Int=0,sex:String="男"){
 
