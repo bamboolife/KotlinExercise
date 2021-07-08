@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.sundy.test.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_message"
+        android:name="com.sundy.test.ui.message.MessageFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/bbl_message_fragment_layout" />
+    <fragment
+        android:id="@+id/navigation_find"
+        android:name="com.sundy.test.ui.find.FindFragment"
+        android:label="fragment_test"
+        tools:layout="@layout/bbl_find_fragment_layout" />
+    <fragment
+        android:id="@+id/navigation_mine"
+        android:name="com.sundy.test.ui.mine.MineFragment"
+        android:label="bbl_mine_fragment_layout"
+        tools:layout="@layout/bbl_mine_fragment_layout" />
+</navigation>
