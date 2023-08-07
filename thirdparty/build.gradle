@@ -44,4 +44,17 @@ dependencies {
     //官方fragment导航器
     api 'androidx.navigation:navigation-fragment-ktx:2.2.2'
     api 'androidx.navigation:navigation-ui-ktx:2.3.1'
+
+    //网络
+    // 协程库(版本可自定)
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
+
+// OkHttp(版本可自定, 要求OkHttp4以上版本)
+    api "com.squareup.okhttp3:okhttp:4.9.1"
+// Net
+    api 'com.github.liangjingkanji:Net:3.0.18'
+
+// 支持自动下拉刷新和缺省页的(可选)
+    api 'com.github.liangjingkanji:BRV:1.3.22'
 }
