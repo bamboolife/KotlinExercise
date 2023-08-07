@@ -1,12 +1,14 @@
 package com.sundy.test
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bamboo.commom.view.GapBottomNavigationView
+import com.sundy.test.lifecycle.MyLocationListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,5 +27,10 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        val location=MyLocationListener(this,lifecycle){
+            Toast.makeText(this,it, Toast.LENGTH_LONG).show()
+        }
+        lifecycle.addObserver(location)
+        location.enable()
     }
 }
